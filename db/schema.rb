@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405160327) do
+ActiveRecord::Schema.define(version: 20150406094001) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "oauth_access_grants", force: true do |t|
     t.integer  "resource_owner_id", null: false
@@ -52,6 +55,20 @@ ActiveRecord::Schema.define(version: 20150405160327) do
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id"
+    t.string   "keyword"
+    t.string   "top_adwords_url",   default: [], array: true
+    t.string   "right_adwords_url", default: [], array: true
+    t.string   "non_adwords_url",   default: [], array: true
+    t.string   "total_results"
+    t.text     "page_cache"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -36,6 +36,15 @@ gem 'devise'
 # Rest json api authentication
 gem 'doorkeeper'
 
+# For debugging
+gem 'byebug'
+
+# Provide interface to open CSV and Excel
+gem 'roo'
+
+# Parse google search result
+gem 'nokogiri'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

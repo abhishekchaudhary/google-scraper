@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  keyword: MyString
+  top_adwords_url: 
+  right_adwords_url: 
+  non_adwords_url: 
+  total_results: MyString
+  page_cache: MyText
+
+two:
+  user_id: 
+  keyword: MyString
+  top_adwords_url: 
+  right_adwords_url: 
+  non_adwords_url: 
+  total_results: MyString
+  page_cache: MyText
