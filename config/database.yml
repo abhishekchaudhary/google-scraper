@@ -26,13 +26,13 @@ default: &default
 
 development:
   <<: *default
-  database: google_scrapper_development
+  database: google_scraper_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: google_scrapper
+  #username: google_scraper
 
   # The password associated with the postgres role (username).
   #password:
@@ -60,7 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: google_scrapper_test
+  database: google_scraper_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: google_scrapper_production
-  username: google_scrapper
-  password: <%= ENV['GOOGLE_SCRAPPER_DATABASE_PASSWORD'] %>
+  database: google_scraper_production
+  username: google_scraper
+  password: <%= ENV['GOOGLE_SCRAPER_DATABASE_PASSWORD'] %>
