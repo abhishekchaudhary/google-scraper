@@ -10,4 +10,5 @@ class Api::V1::ReportsControllerTest < ActionController::TestCase
     get :show
     assert_response :success
   end
+
 end
