@@ -1,13 +1,12 @@
 require 'nokogiri'
 require 'open-uri'
 
-# REST API for for Reports
-class Api::V1::ReportsController < ApplicationController
-	before_action :doorkeeper_authorize!
-	respond_to :json
+# Controller for Reports
+class ReportsController < ApplicationController
+	before_filter :authenticate_user!
 	#  List of reports
   def index
-  	@reports = present_user.reports
+  	@reports = current_user.reports
   	if !params[:adword_present].nil?
   		@reports = @reports.where("'%#{params[:adword_present]}%' ~~*^ ANY (top_adwords_url) OR '%#{params[:adword_present]}%' ~~*^ ANY (right_adwords_url)")
   	end
@@ -15,14 +14,16 @@ class Api::V1::ReportsController < ApplicationController
   	if !params[:url_present].nil?
   		@reports = @reports.where("'#{params[:url_present]}' ~~*^ ANY (non_adwords_url)")
   	end
-
-  	respond_with @reports
   end
 
   # Show report
   def show
   	@report = Report.find(params[:id])
-  	respond_with @report
+  end
+
+  # New report
+  def new
+  	@report = current_user.reports.new
   end
 
   # Create report
@@ -31,11 +32,11 @@ class Api::V1::ReportsController < ApplicationController
 
   	unless keywords.nil?
   		keywords = keywords.row(1)
-			begin
+  		begin
   			keywords.each do |keyword|
   		  reformat_keyword = keyword.gsub(" ","+")
           doc = Nokogiri::HTML(open('http://www.google.com/search?q='+reformat_keyword))
-          report = present_user.reports.new
+          report = current_user.reports.new
           report.keyword = keyword
 
           # Top adwords
@@ -68,12 +69,13 @@ class Api::V1::ReportsController < ApplicationController
 				  report.save
   			end
   		rescue Exception => exc
-	      ExceptionHandler.log_exception exc, info: 'User Not Found'
-	      render json: {errors: {reports: exc.message}, message: 'Unable to process keywords'}, status: :not_found
+  			logger.error("Message for the log file #{exc.message}")
+  			flash[:notice] = "Unable to process keywords"
+  			redirect_to reports_url
   		end
   	end
-  	@reports = present_user.reports
-  	respond_with @reports
+  	@reports = current_user.reports
+  	redirect_to reports_url, notice: "Reports are successfully created"
   end
 
   private
@@ -88,10 +90,5 @@ class Api::V1::ReportsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def report_params
     params.require(:report).permit(:keyword, :top_adwords_url, :right_adwords_url, :non_adwords_url, :total_results, :page_cache)
-  end
-
-	# Current user
-  def present_user
-  	User.find(doorkeeper_token.resource_owner_id)
   end
 end

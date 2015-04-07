@@ -1,22 +1,21 @@
 Rails.application.routes.draw do
 
   use_doorkeeper
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-    	get 'home/index'
-    	get 'reports/index'
-    	get 'reports/show'
-    	get 'reports/new'
-    	post 'reports/create'
+    	resources :reports
     end
   end
+
+  get 'home/index'
+  resources :reports
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'api/v1/home#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

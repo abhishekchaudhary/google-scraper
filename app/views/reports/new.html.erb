@@ -1,0 +1,13 @@
+	<div class="row">
+		<div class="col-xs-9 pad-center" >
+			<div class="well">
+				<%= form_tag reports_path, {class: 'form-class', multipart: true}  do %>
+					<label for="file">Select CSV to Upload</label>
+					<%= file_field_tag "file" %>
+					<br/>
+					<%= submit_tag("Save", class: "btn btn-success btn-sm") %>
+					<%=link_to "Cancel", reports_path, class: "btn btn-sm btn-default" %>
+				<% end %>
+			</div>
+		</div>
+	</div>

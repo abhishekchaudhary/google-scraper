@@ -1,0 +1,55 @@
+<div class="page-header" style="margin-bottom: 70px;">
+	<h1>Searched Reports</h1>
+</div>
+
+<div class="well">
+	<div class="row">
+		<div class="col-xs-4" >
+			<%= form_tag reports_path, {method: :get , class: 'form-class'}  do %>
+				<%= label_tag 'Search Adwords' %><br/>
+				<%=text_field_tag 'adword_present', nil, placeholder:'Word present in Adwords'%>
+				<%= submit_tag("Get", class: "btn btn-success btn-sm") %>
+			<% end %>
+		</div>
+		<div class="col-xs-4">
+			<%= form_tag reports_path, {method: :get , class: 'form-class'}  do %>
+				<%= label_tag 'Url in Seo' %><br/>
+				<%=text_field_tag 'url_present', nil, placeholder:'Enter Url'%>
+				<%= submit_tag("Get", class: "btn btn-success btn-sm") %>
+			<% end %>
+		</div>
+		<div class="col-xs-4 pad-top" align="center">
+			<%= link_to "New Report", new_report_path, class: "btn btn-success btn-sm" %>
+		</div>
+	</div>
+</div>
+
+<div class="jumbotron">
+	<table class="table">
+		<caption>Records: <%=@reports.count%> <%=link_to "Reset", reports_path, class: "btn btn-sm btn-default pull-right" %></caption>
+	   <thead>
+	      <tr>
+	         <th>Keyword</th>
+	         <th>Top Adwords</th>
+	         <th>Right Adwords</th>
+	         <th>Total Adwords</th>
+	         <th>Non Adwords</th>
+	         <th>Total Results</th>
+	         <th>Total Links</th>
+	      </tr>
+	   </thead>
+	   <tbody>
+		<% @reports.each do |report| %>
+	  	  <tr>
+	        <td><%=link_to report.keyword, report_path(report.id) %></td>
+	        <td><%=report.top_adwords_number%></td>
+	        <td><%=report.right_adwords_number%></td>
+	        <td><%=report.total_adwords_number%></td>
+	        <td><%=report.non_adwords_number%></td>
+	        <td><%=report.total_results%></td>
+	        <td><%=report.total_links%></td>
+	      </tr>
+		<%end%>
+	   </tbody>
+	</table>
+</div>

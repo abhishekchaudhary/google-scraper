@@ -1,0 +1,48 @@
+	<div class="row">
+		<div class="col-xs-9 pad-center" >
+			<div class="well">
+				<h1><%= @report.keyword%></h1>
+				<div class="span">
+					<label>Total of search Results</label>
+					<p>
+						<%if !@report.total_results.blank?%>
+							<%=@report.total_results%>
+						<%else%>
+							<%="N/A"%>
+						<%end%>
+					</p>
+				</div>
+				<div class="span">
+					<label>Top Adwords Url</label>
+					<p>
+						<%if !@report.top_adwords_url.empty?%>
+							<%=@report.top_adwords_url%>
+						<%else%>
+							<%="N/A"%>
+						<%end%>
+					</p>
+				</div>
+				<div class="span">
+					<label>Right Adwords Url</label>
+					<p>
+						<%if !@report.right_adwords_url.empty?%>
+							<%=@report.right_adwords_url%>
+						<%else%>
+							<%="N/A"%>
+						<%end%>
+					</p>
+				</div>
+				<div class="span">
+					<label>Non Adwords Url</label>
+					<p>
+						<%if !@report.non_adwords_url.empty?%>
+							<%=@report.non_adwords_url%>
+						<%else%>
+							<%="N/A"%>
+						<%end%>
+					</p>
+				</div>
+				<%=link_to "Back", reports_path, class: "btn btn-sm btn-success" %>
+			</div>
+		</div>
+	</div>
