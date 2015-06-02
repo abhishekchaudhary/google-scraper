@@ -1,5 +1,5 @@
 # google-scraper
-
+A sample application developed to scrap search result of google web search and return total number of adwords displayed. Api is feature is also added and secured using doorkeeper.
 ## Steps to setup app on local
 
 * Clone the app.
